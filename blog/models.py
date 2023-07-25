@@ -23,4 +23,4 @@ class Comment(models.Model):
     create_at = models.DateTimeField(default= timezone.now())
 
     def __str__(self) -> str:
-        return f'Comment by {self.author} on {self.post}'
+        return self.comment

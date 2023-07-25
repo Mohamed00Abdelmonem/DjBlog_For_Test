@@ -62,11 +62,12 @@ a {
 </head>
 <body>
     <header>
-        <h1>Post </h1>
+        <h1>Post {{data}} </h1>
     </header>
 
     <main>
         <article>
+            <img src="{{data.image.url}}" width="300px" alt="">
             <h2>{{ data.title }}</h2>
             <p>{{ data.content }}</p>
         </article>
@@ -76,11 +77,25 @@ a {
 <hr>
 
 <ul>
-   {% for comment in comments %}
+   {% for comment in post_comments %}
         <li>{{comment.comment}} __ {{comment.author}} __ {{comment.create_at}}</li>
    {% endfor %}
 </ul>
 
+<br>
+<br>
+<br>
+<br>
+<hr>
+<h2>Add New Comment</h2>
+<form method="post">
+
+    {% csrf_token %}
+
+    {{ form }}
+
+    <input type="submit" value="add comment">
+</form>
 <br>
 <br>
 <br>

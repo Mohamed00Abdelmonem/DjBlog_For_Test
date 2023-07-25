@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Post, Comment
-from django.views.generic import ListView,DetailView,CreateView,DeleteView,UpdateView
+from .forms import CommentForm
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView
 
 
 class PostList(ListView):
@@ -13,8 +14,18 @@ class PostList(ListView):
 
 def PostDetail(request,pk):
     data = Post.objects.get(id=pk)
-    comments = Comment.objects.filter(post=data )
-    return render(request, 'blog/post_detail.html', {'data':data , 'comments':comments})
+    post_comments = Comment.objects.filter(post=data)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            myform = form.save(commit=False)
+            myform.author = request.user
+            myform.post = data
+            myform.save()
+            form = CommentForm()
+    else:
+        form = CommentForm()    
+    return render(request, 'blog/post_detail.html', {'data':data, 'form':form ,'post_comments':post_comments})
 
 
 class PostCreate(CreateView):
