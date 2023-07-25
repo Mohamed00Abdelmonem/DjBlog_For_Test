@@ -67,11 +67,24 @@ a {
 
     <main>
         <article>
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
+            <h2>{{ data.title }}</h2>
+            <p>{{ data.content }}</p>
         </article>
     </main>
+<hr> 
+<h1>comments</h1>
+<hr>
 
+<ul>
+   {% for comment in comments %}
+        <li>{{comment.comment}} __ {{comment.author}} __ {{comment.create_at}}</li>
+   {% endfor %}
+</ul>
+
+<br>
+<br>
+<br>
+<br>
     <footer>
         <p>&copy; 2023 My Blog. All rights reserved.</p>
     </footer>

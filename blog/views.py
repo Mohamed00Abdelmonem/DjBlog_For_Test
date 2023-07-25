@@ -1,13 +1,21 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post, Comment
 from django.views.generic import ListView,DetailView,CreateView,DeleteView,UpdateView
 
 
 class PostList(ListView):
     model = Post
 
-class PostDetail(DetailView):
-    model = Post
+
+# class PostDetail(DetailView):
+#     model = Post
+
+
+def PostDetail(request,pk):
+    data = Post.objects.get(id=pk)
+    comments = Comment.objects.filter(post=data )
+    return render(request, 'blog/post_detail.html', {'data':data , 'comments':comments})
+
 
 class PostCreate(CreateView):
     model = Post

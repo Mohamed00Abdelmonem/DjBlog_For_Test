@@ -24,7 +24,7 @@ from blog.views import PostList,PostDetail,PostCreate,PostDelete,PostUpdate
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', PostList.as_view()),
-    path('<int:pk>', PostDetail.as_view()),
+    path('<int:pk>', PostDetail),
     path('create', PostCreate.as_view()),
     path('<int:pk>/update', PostUpdate.as_view()),
     path('<int:pk>/delete', PostDelete.as_view()),
